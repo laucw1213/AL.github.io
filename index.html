@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docker Environment Configuration Generator</title>
+    <title>Voicebot Setup</title>
     <style>
         /* Basic styles */
         * {
@@ -326,40 +326,27 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Docker Environment Configuration Generator</h1>
-            <p>Configure your Docker Compose environment variables and SSL certificates</p>
+            <h1>Voicebot Setup</h1>
+            <p>Configure your voicebot services and SSL certificates</p>
         </div>
 
         <div class="form-container">
             <!-- Intro Section -->
             <div id="introSection" class="section active">
-                <h2 class="section-title">🚀 Welcome to Docker Configuration Generator</h2>
+                <h2 class="section-title">🚀 Voicebot Configuration</h2>
                 
                 <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 30px;">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px;">What This Tool Does</h3>
-                    <p style="margin-bottom: 15px; line-height: 1.6;">This tool helps you create Docker environment configuration files for your services.</p>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">What We'll Do</h3>
+                    <p style="margin-bottom: 25px; line-height: 1.6; font-size: 16px;">Configure your voicebot services: Main, API, SSO, and Proxy.</p>
                     
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; margin-top: 25px;">What You Need to Prepare</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #3498db;">
-                            <strong>📝 Service Information</strong><br>
-                            • Hostnames for each service<br>
-                            • IP addresses for each service
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">What You Need to Prepare</h3>
+                    <div style="background: white; padding: 20px; border-radius: 6px; border-left: 4px solid #3498db;">
+                        <div style="font-size: 16px; line-height: 1.8; color: #2c3e50;">
+                            For <strong>each of the 4 services</strong> (Main, API, SSO, Proxy), you need:<br><br>
+                            📝 <strong>Hostname</strong><br>
+                            🌐 <strong>IP Address</strong><br>
+                            🔒 <strong>SSL Certificate</strong> (certificate file + private key)
                         </div>
-                        <div style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #e74c3c;">
-                            <strong>🔒 SSL Certificates</strong><br>
-                            • Certificate files (.crt) for all 4 services<br>
-                            • Private key files (.key) for all 4 services
-                        </div>
-                    </div>
-                    
-                    <h3 style="color: #2c3e50; margin-bottom: 15px; margin-top: 25px;">Simple Process</h3>
-                    <p style="margin-bottom: 10px; line-height: 1.6;">Just 4 easy steps to configure:</p>
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
-                        <span style="background: #3498db; color: white; padding: 8px 15px; border-radius: 20px; font-weight: 500;">1. Main</span>
-                        <span style="background: #9b59b6; color: white; padding: 8px 15px; border-radius: 20px; font-weight: 500;">2. API</span>
-                        <span style="background: #e67e22; color: white; padding: 8px 15px; border-radius: 20px; font-weight: 500;">3. SSO</span>
-                        <span style="background: #27ae60; color: white; padding: 8px 15px; border-radius: 20px; font-weight: 500;">4. Proxy</span>
                     </div>
                 </div>
             </div>
@@ -372,14 +359,7 @@
 
             <!-- Completion Section -->
             <div id="completionSection" class="completion-section">
-                <div class="completion-title">All Configuration Complete!</div>
-                <p>You have successfully configured all Docker services:</p>
-                <div class="service-summary">
-                    <div class="service-list" id="serviceList">
-                        <!-- Services will be populated here -->
-                    </div>
-                </div>
-                <p>Ready to generate your Docker environment configuration files.</p>
+                <div class="completion-title">Setup Complete!</div>
             </div>
 
             <!-- Main Section -->
@@ -556,15 +536,6 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
 
             <!-- Next Button -->
             <button type="button" id="nextButton" class="next-button" onclick="nextPart()">Get Started</button>
-
-            <!-- Status Message -->
-            <div id="statusMessage" class="status-message"></div>
-
-            <!-- Preview Section -->
-            <div id="previewSection" class="preview-section">
-                <div class="preview-title">Configuration Preview (.env file content)</div>
-                <div id="previewContent" class="preview-content"></div>
-            </div>
         </div>
     </div>
 
@@ -593,18 +564,6 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
             // Hide progress elements
             document.getElementById('progressText').style.display = 'none';
             document.getElementById('progressBarContainer').style.display = 'none';
-            
-            // Populate service list
-            const serviceList = document.getElementById('serviceList');
-            serviceList.innerHTML = '';
-            
-            services.forEach(service => {
-                const hostValue = document.getElementById(`${service.name}_HOST`).value || service.host;
-                const serviceItem = document.createElement('div');
-                serviceItem.className = 'service-item';
-                serviceItem.textContent = `${service.display} (${hostValue})`;
-                serviceList.appendChild(serviceItem);
-            });
             
             // Show completion section
             document.getElementById('completionSection').style.display = 'block';
@@ -640,14 +599,18 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
 
             // Check if we're done with all parts
             if (currentPart > totalParts) {
-                // Show completion summary
+                // Show completion summary and hide button
                 showCompletionSummary();
-                document.getElementById("nextButton").textContent = "Generate Configuration Files";
-                document.getElementById("nextButton").onclick = generateConfig;
+                document.getElementById("nextButton").style.display = 'none';
             } else {
                 // Show next section
                 document.getElementById(`${getPartName(currentPart)}Section`).classList.add("active");
                 updateProgress();
+                
+                // Change button text to "Finish" on the last step (Proxy)
+                if (currentPart === totalParts) {
+                    document.getElementById('nextButton').textContent = 'Finish';
+                }
             }
         }
 
@@ -674,35 +637,6 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                 };
                 reader.readAsText(file);
             }
-        }
-
-        function generateConfig() {
-            // Collect all form data
-            const formElements = document.querySelectorAll('input[name], textarea[name]');
-            let envContent = '';
-            
-            // Generate .env file content
-            formElements.forEach(element => {
-                if (element.value.trim()) {
-                    envContent += `${element.name}=${element.value}\n`;
-                }
-            });
-            
-            // Show preview
-            document.getElementById('previewContent').textContent = envContent;
-            document.getElementById('previewSection').style.display = 'block';
-            
-            showStatus('✅ Configuration files generated and ready for download!', 'success');
-            
-            // Hide the generate button after completion
-            document.getElementById('nextButton').style.display = 'none';
-        }
-
-        function showStatus(message, type) {
-            const statusDiv = document.getElementById('statusMessage');
-            statusDiv.textContent = message;
-            statusDiv.className = `status-message status-${type}`;
-            statusDiv.style.display = 'block';
         }
     </script>
 </body>
