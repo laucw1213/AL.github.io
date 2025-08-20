@@ -30,7 +30,7 @@
         }
 
         .header {
-            background: #3498db;
+            background: #0f172a;
             color: white;
             padding: 30px;
             text-align: center;
@@ -63,10 +63,10 @@
 
         .section-title {
             font-size: 1.6em;
-            color: #3498db;
+            color: #0f172a;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #0f172a;
             display: flex;
             align-items: center;
             font-weight: bold;
@@ -99,9 +99,7 @@
         }
 
         .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
+            display: block;
         }
 
         .form-group {
@@ -130,8 +128,8 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            border-color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
         }
 
         .form-group textarea {
@@ -150,7 +148,7 @@
         }
 
         .file-upload-area {
-            border: 2px dashed #3498db;
+            border: 2px dashed #0f172a;
             border-radius: 8px;
             padding: 20px;
             text-align: center;
@@ -168,7 +166,7 @@
         }
 
         .file-button {
-            background: #3498db;
+            background: #0f172a;
             color: white;
             border: none;
             padding: 8px 16px;
@@ -179,7 +177,7 @@
         }
 
         .file-button:hover {
-            background: #2980b9;
+            background: #1e293b;
         }
 
         .next-button {
@@ -262,7 +260,7 @@
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #3498db, #2ecc71);
+            background: linear-gradient(90deg, #0f172a, #2ecc71);
             height: 100%;
             transition: width 0.3s ease;
             border-radius: 4px;
@@ -295,32 +293,6 @@
             font-size: 1.2em;
         }
 
-        .service-summary {
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .service-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .service-item {
-            background: rgba(255,255,255,0.15);
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        .service-item::before {
-            content: "🚀 ";
-            margin-right: 8px;
-        }
-
     </style>
 </head>
 <body>
@@ -336,16 +308,41 @@
                 <h2 class="section-title">🚀 Voicebot Configuration</h2>
                 
                 <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 30px;">
-                    <h3 style="color: #2c3e50; margin-bottom: 15px;">What We'll Do</h3>
-                    <p style="margin-bottom: 25px; line-height: 1.6; font-size: 16px;">Configure your voicebot services: Main, API, SSO, and Proxy.</p>
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">Setup Instructions</h3>
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 6px; border-left: 4px solid #ffc107; margin-bottom: 25px;">
+                        <div style="font-size: 16px; line-height: 1.8; color: #2c3e50;">
+                            Please make sure that a DHCP static lease for the following MAC address: 
+                            <span id="macAddress" style="font-family: monospace; background: #f1f3f4; padding: 4px 8px; border-radius: 4px; font-weight: bold;">Loading...</span> 
+                            is completed
+                        </div>
+                    </div>
                     
                     <h3 style="color: #2c3e50; margin-bottom: 15px;">What You Need to Prepare</h3>
-                    <div style="background: white; padding: 20px; border-radius: 6px; border-left: 4px solid #3498db;">
+                    <div style="background: white; padding: 20px; border-radius: 6px; border-left: 4px solid #0f172a; margin-bottom: 25px;">
                         <div style="font-size: 16px; line-height: 1.8; color: #2c3e50;">
                             For <strong>each of the 4 services</strong> (Main, API, SSO, Proxy), you need:<br><br>
                             📝 <strong>Hostname</strong><br>
-                            🌐 <strong>IP Address</strong><br>
-                            🔒 <strong>SSL Certificate</strong> (certificate file + private key)
+                            🔒 <strong>SSL Certificate</strong> (based on mode selected below)
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: #2c3e50; margin-bottom: 15px;">Certificate Mode</h3>
+                    <div style="margin-bottom: 25px;">
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <label style="display: flex; align-items: center; background: white; padding: 15px; border-radius: 6px; border: 2px solid #e0e6ed; cursor: pointer; flex: 1; min-width: 200px;">
+                                <input type="radio" name="certMode" value="wildcard" checked style="margin-right: 10px;">
+                                <div>
+                                    <strong>🌟 Wildcard Certificate</strong><br>
+                                    <small style="color: #666;">One certificate for all services</small>
+                                </div>
+                            </label>
+                            <label style="display: flex; align-items: center; background: white; padding: 15px; border-radius: 6px; border: 2px solid #e0e6ed; cursor: pointer; flex: 1; min-width: 200px;">
+                                <input type="radio" name="certMode" value="individual" style="margin-right: 10px;">
+                                <div>
+                                    <strong>🔒 Individual Certificates</strong><br>
+                                    <small style="color: #666;">Separate certificate for each service</small>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -362,45 +359,66 @@
                 <div class="completion-title">Setup Complete!</div>
             </div>
 
+            <!-- All Services Section (for wildcard mode) -->
+            <div id="allServicesSection" class="section">
+                <h2 class="section-title hosts">All Services Configuration</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="MAIN_HOST_WC">Main Hostname</label>
+                        <input type="text" id="MAIN_HOST_WC" name="MAIN_HOST" value="vb.test.ai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="API_HOST_WC">API Hostname</label>
+                        <input type="text" id="API_HOST_WC" name="API_HOST" value="api.vb.test.ai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="SSO_HOST_WC">SSO Hostname</label>
+                        <input type="text" id="SSO_HOST_WC" name="SSO_HOST" value="sso.vb.test.ai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PROXY_HOST_WC">Proxy Hostname</label>
+                        <input type="text" id="PROXY_HOST_WC" name="PROXY_HOST" value="proxy.vb.test.ai" required>
+                    </div>
+                </div>
+            </div>
+
             <!-- Main Section -->
             <div id="mainSection" class="section">
                 <h2 class="section-title hosts">Main Configuration</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="TRAEFIK_HOST">Main Hostname</label>
-                        <input type="text" id="TRAEFIK_HOST" name="TRAEFIK_HOST" value="vb.test.ai" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="TRAEFIK_IP">Main IP Address</label>
-                        <input type="text" id="TRAEFIK_IP" name="TRAEFIK_IP" value="192.168.1.10" required>
+                        <label for="MAIN_HOST">Main Hostname</label>
+                        <input type="text" id="MAIN_HOST" name="MAIN_HOST" value="vb.test.ai" required>
                     </div>
                 </div>
 
-                <!-- SSL Certificate Section -->
-                <h3 class="section-title ssl">SSL Certificate Configuration</h3>
-                <div class="ssl-section">
-                    <div class="form-group">
-                        <label for="SSL_CERT">SSL Certificate Content (.crt)</label>
-                        <div class="file-upload-area">
-                            <p>You can paste certificate content or upload certificate file</p>
-                            <button type="button" class="file-button" onclick="loadFile('SSL_CERT')">Choose .crt File</button>
-                            <input type="file" id="certFile" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT')">
-                        </div>
-                        <textarea id="SSL_CERT" name="SSL_CERT" placeholder="-----BEGIN CERTIFICATE-----
+                <!-- SSL Certificate Section (only show for individual mode) -->
+                <div id="mainSslSection">
+                    <h3 class="section-title ssl">SSL Certificate Configuration</h3>
+                    <div class="ssl-section">
+                        <div class="form-group">
+                            <label for="SSL_CERT_MAIN">SSL Certificate Content (.crt)</label>
+                            <textarea id="SSL_CERT_MAIN" name="SSL_CERT_MAIN" placeholder="-----BEGIN CERTIFICATE-----
 MIIDbTCCAlWgAwIBAgIJAKgZz8Qj6MUBMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNV...
 -----END CERTIFICATE-----"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="SSL_KEY">SSL Private Key Content (.key)</label>
-                        <div class="file-upload-area">
-                            <p>You can paste private key content or upload private key file</p>
-                            <button type="button" class="file-button" onclick="loadFile('SSL_KEY')">Choose .key File</button>
-                            <input type="file" id="keyFile" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY')">
+                            <div class="file-upload-area">
+                                <p>You can paste certificate content or upload certificate file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_CERT_MAIN')">Choose .crt File</button>
+                                <input type="file" id="certFileMAIN" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_MAIN')">
+                            </div>
                         </div>
-                        <textarea id="SSL_KEY" name="SSL_KEY" placeholder="-----BEGIN PRIVATE KEY-----
+
+                        <div class="form-group">
+                            <label for="SSL_KEY_MAIN">SSL Private Key Content (.key)</label>
+                            <textarea id="SSL_KEY_MAIN" name="SSL_KEY_MAIN" placeholder="-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
 -----END PRIVATE KEY-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste private key content or upload private key file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_KEY_MAIN')">Choose .key File</button>
+                                <input type="file" id="keyFileMAIN" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_MAIN')">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -413,9 +431,87 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                         <label for="API_HOST">API Hostname</label>
                         <input type="text" id="API_HOST" name="API_HOST" value="api.vb.test.ai" required>
                     </div>
+                </div>
+
+                <!-- SSL Certificate Section (only show for individual mode) -->
+                <div id="apiSslSection">
+                    <h3 class="section-title ssl">SSL Certificate Configuration</h3>
+                    <div class="ssl-section">
+                        <div class="form-group">
+                            <label for="SSL_CERT_API">SSL Certificate Content (.crt)</label>
+                            <textarea id="SSL_CERT_API" name="SSL_CERT_API" placeholder="-----BEGIN CERTIFICATE-----
+MIIDbTCCAlWgAwIBAgIJAKgZz8Qj6MUBMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNV...
+-----END CERTIFICATE-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste certificate content or upload certificate file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_CERT_API')">Choose .crt File</button>
+                                <input type="file" id="certFileAPI" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_API')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SSL_KEY_API">SSL Private Key Content (.key)</label>
+                            <textarea id="SSL_KEY_API" name="SSL_KEY_API" placeholder="-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
+-----END PRIVATE KEY-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste private key content or upload private key file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_KEY_API')">Choose .key File</button>
+                                <input type="file" id="keyFileAPI" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_API')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SSO Section -->
+            <div id="ssoSection" class="section">
+                <h2 class="section-title sso">SSO Configuration</h2>
+                <div class="form-grid">
                     <div class="form-group">
-                        <label for="API_IP">API IP Address</label>
-                        <input type="text" id="API_IP" name="API_IP" value="192.168.1.11" required>
+                        <label for="SSO_HOST">SSO Hostname</label>
+                        <input type="text" id="SSO_HOST" name="SSO_HOST" value="sso.vb.test.ai" required>
+                    </div>
+                </div>
+
+                <!-- SSL Certificate Section (only show for individual mode) -->
+                <div id="ssoSslSection">
+                    <h3 class="section-title ssl">SSL Certificate Configuration</h3>
+                    <div class="ssl-section">
+                        <div class="form-group">
+                            <label for="SSL_CERT_SSO">SSL Certificate Content (.crt)</label>
+                            <textarea id="SSL_CERT_SSO" name="SSL_CERT_SSO" placeholder="-----BEGIN CERTIFICATE-----
+MIIDbTCCAlWgAwIBAgIJAKgZz8Qj6MUBMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNV...
+-----END CERTIFICATE-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste certificate content or upload certificate file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_CERT_SSO')">Choose .crt File</button>
+                                <input type="file" id="certFileSSO" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_SSO')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SSL_KEY_SSO">SSL Private Key Content (.key)</label>
+                            <textarea id="SSL_KEY_SSO" name="SSL_KEY_SSO" placeholder="-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
+-----END PRIVATE KEY-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste private key content or upload private key file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_KEY_SSO')">Choose .key File</button>
+                                <input type="file" id="keyFileSSO" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_SSO')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Section -->
+            <div id="apiSection" class="section">
+                <h2 class="section-title hosts">API Configuration</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="API_HOST">API Hostname</label>
+                        <input type="text" id="API_HOST" name="API_HOST" value="api.vb.test.ai" required>
                     </div>
                 </div>
 
@@ -499,37 +595,71 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                         <label for="PROXY_HOST">Proxy Hostname</label>
                         <input type="text" id="PROXY_HOST" name="PROXY_HOST" value="proxy.vb.test.ai" required>
                     </div>
-                    <div class="form-group">
-                        <label for="PROXY_IP">Proxy IP Address</label>
-                        <input type="text" id="PROXY_IP" name="PROXY_IP" value="192.168.1.13" required>
-                    </div>
                 </div>
 
-                <!-- SSL Certificate Section -->
-                <h3 class="section-title ssl">SSL Certificate Configuration</h3>
-                <div class="ssl-section">
-                    <div class="form-group">
-                        <label for="SSL_CERT_PROXY">SSL Certificate Content (.crt)</label>
-                        <div class="file-upload-area">
-                            <p>You can paste certificate content or upload certificate file</p>
-                            <button type="button" class="file-button" onclick="loadFile('SSL_CERT_PROXY')">Choose .crt File</button>
-                            <input type="file" id="certFilePROXY" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_PROXY')">
-                        </div>
-                        <textarea id="SSL_CERT_PROXY" name="SSL_CERT_PROXY" placeholder="-----BEGIN CERTIFICATE-----
+                <!-- SSL Certificate Section (only show for individual mode) -->
+                <div id="proxySslSection">
+                    <h3 class="section-title ssl">SSL Certificate Configuration</h3>
+                    <div class="ssl-section">
+                        <div class="form-group">
+                            <label for="SSL_CERT_PROXY">SSL Certificate Content (.crt)</label>
+                            <textarea id="SSL_CERT_PROXY" name="SSL_CERT_PROXY" placeholder="-----BEGIN CERTIFICATE-----
 MIIDbTCCAlWgAwIBAgIJAKgZz8Qj6MUBMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNV...
 -----END CERTIFICATE-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste certificate content or upload certificate file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_CERT_PROXY')">Choose .crt File</button>
+                                <input type="file" id="certFilePROXY" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_PROXY')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SSL_KEY_PROXY">SSL Private Key Content (.key)</label>
+                            <textarea id="SSL_KEY_PROXY" name="SSL_KEY_PROXY" placeholder="-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
+-----END PRIVATE KEY-----"></textarea>
+                            <div class="file-upload-area">
+                                <p>You can paste private key content or upload private key file</p>
+                                <button type="button" class="file-button" onclick="loadFile('SSL_KEY_PROXY')">Choose .key File</button>
+                                <input type="file" id="keyFilePROXY" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_PROXY')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wildcard Certificate Section -->
+            <div id="wildcardSection" class="section">
+                <h2 class="section-title ssl">Wildcard SSL Certificate</h2>
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="color: #2c3e50; margin-bottom: 15px; line-height: 1.6;">
+                        Configure your wildcard SSL certificate that will be used for all services.
+                    </p>
+                </div>
+                
+                <div class="ssl-section">
+                    <div class="form-group">
+                        <label for="SSL_CERT_WILDCARD">Wildcard SSL Certificate Content (.crt)</label>
+                        <textarea id="SSL_CERT_WILDCARD" name="SSL_CERT_WILDCARD" placeholder="-----BEGIN CERTIFICATE-----
+MIIDbTCCAlWgAwIBAgIJAKgZz8Qj6MUBMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNV...
+-----END CERTIFICATE-----"></textarea>
+                        <div class="file-upload-area">
+                            <p>You can paste certificate content or upload certificate file</p>
+                            <button type="button" class="file-button" onclick="loadFile('SSL_CERT_WILDCARD')">Choose .crt File</button>
+                            <input type="file" id="certFileWILDCARD" accept=".crt,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_CERT_WILDCARD')">
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="SSL_KEY_PROXY">SSL Private Key Content (.key)</label>
-                        <div class="file-upload-area">
-                            <p>You can paste private key content or upload private key file</p>
-                            <button type="button" class="file-button" onclick="loadFile('SSL_KEY_PROXY')">Choose .key File</button>
-                            <input type="file" id="keyFilePROXY" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_PROXY')">
-                        </div>
-                        <textarea id="SSL_KEY_PROXY" name="SSL_KEY_PROXY" placeholder="-----BEGIN PRIVATE KEY-----
+                        <label for="SSL_KEY_WILDCARD">Wildcard SSL Private Key Content (.key)</label>
+                        <textarea id="SSL_KEY_WILDCARD" name="SSL_KEY_WILDCARD" placeholder="-----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
 -----END PRIVATE KEY-----"></textarea>
+                        <div class="file-upload-area">
+                            <p>You can paste private key content or upload private key file</p>
+                            <button type="button" class="file-button" onclick="loadFile('SSL_KEY_WILDCARD')">Choose .key File</button>
+                            <input type="file" id="keyFileWILDCARD" accept=".key,.pem" style="display: none;" onchange="handleFileLoad(this, 'SSL_KEY_WILDCARD')">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -541,14 +671,41 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
 
     <script>
         let currentPart = 0; // Start with intro (0)
-        const totalParts = 4;
+        let totalParts = 4; // Will be updated based on cert mode
+        let certMode = 'wildcard'; // Default mode
         
         const services = [
-            {name: 'TRAEFIK', host: 'vb.test.ai', display: 'Main'},
-            {name: 'API', host: 'api.vb.test.ai', display: 'API'},
-            {name: 'SSO', host: 'sso.vb.test.ai', display: 'SSO'},
-            {name: 'PROXY', host: 'proxy.vb.test.ai', display: 'Proxy'}
+            {name: 'MAIN', display: 'Main'},
+            {name: 'API', display: 'API'},
+            {name: 'SSO', display: 'SSO'},
+            {name: 'PROXY', display: 'Proxy'}
         ];
+
+        function getCertMode() {
+            const selectedMode = document.querySelector('input[name="certMode"]:checked');
+            return selectedMode ? selectedMode.value : 'wildcard';
+        }
+
+        function setupCertMode() {
+            certMode = getCertMode();
+            
+            // Show/hide SSL sections based on mode
+            const sslSections = ['mainSslSection', 'apiSslSection', 'ssoSslSection', 'proxySslSection'];
+            
+            if (certMode === 'individual') {
+                totalParts = 4; // Main, API, SSO, Proxy
+                sslSections.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) element.style.display = 'block';
+                });
+            } else {
+                totalParts = 2; // All Services, Wildcard Cert
+                sslSections.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) element.style.display = 'none';
+                });
+            }
+        }
 
         function updateProgress() {
             if (currentPart === 0) return; // No progress bar on intro
@@ -556,7 +713,13 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
             const progressPercent = (currentPart / totalParts) * 100;
             document.getElementById('progressFill').style.width = progressPercent + '%';
             
-            const stepNames = ['Main', 'API', 'SSO', 'Proxy'];
+            let stepNames;
+            if (certMode === 'wildcard') {
+                stepNames = ['All Services', 'SSL Certificate'];
+            } else {
+                stepNames = ['Main', 'API', 'SSO', 'Proxy'];
+            }
+            
             document.getElementById('progressText').textContent = `Step ${currentPart} of ${totalParts}: ${stepNames[currentPart - 1]}`;
         }
 
@@ -574,6 +737,9 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
             
             // Handle intro section
             if (currentPart === 0) {
+                // Setup certificate mode
+                setupCertMode();
+                
                 // Hide intro
                 document.getElementById('introSection').classList.remove('active');
                 
@@ -584,9 +750,13 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                 // Change button text
                 document.getElementById('nextButton').textContent = 'Next Part';
                 
-                // Show main section
+                // Show first section based on cert mode
                 currentPart = 1;
-                document.getElementById('mainSection').classList.add('active');
+                if (certMode === 'wildcard') {
+                    document.getElementById('allServicesSection').classList.add('active');
+                } else {
+                    document.getElementById('mainSection').classList.add('active');
+                }
                 updateProgress();
                 return;
             }
@@ -607,7 +777,7 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                 document.getElementById(`${getPartName(currentPart)}Section`).classList.add("active");
                 updateProgress();
                 
-                // Change button text to "Finish" on the last step (Proxy)
+                // Change button text to "Finish" on the last step
                 if (currentPart === totalParts) {
                     document.getElementById('nextButton').textContent = 'Finish';
                 }
@@ -615,12 +785,20 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
         }
 
         function getPartName(part) {
-            switch (part) {
-                case 1: return "main";
-                case 2: return "api";
-                case 3: return "sso";
-                case 4: return "proxy";
-                default: return "";
+            if (certMode === 'wildcard') {
+                switch (part) {
+                    case 1: return "allServices";
+                    case 2: return "wildcard";
+                    default: return "";
+                }
+            } else {
+                switch (part) {
+                    case 1: return "main";
+                    case 2: return "api";
+                    case 3: return "sso";
+                    case 4: return "proxy";
+                    default: return "";
+                }
             }
         }
 
@@ -638,6 +816,23 @@ MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8pYmlqvx...
                 reader.readAsText(file);
             }
         }
+
+        // Get MAC address (simulated for demo)
+        function getMacAddress() {
+            // In a real application, this would use a native app or API
+            // For demo purposes, we'll generate a simulated MAC address
+            const macParts = [];
+            for (let i = 0; i < 6; i++) {
+                macParts.push(Math.floor(Math.random() * 256).toString(16).padStart(2, '0'));
+            }
+            return macParts.join(':').toUpperCase();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display MAC address
+            document.getElementById('macAddress').textContent = getMacAddress();
+        });
     </script>
 </body>
 </html>
